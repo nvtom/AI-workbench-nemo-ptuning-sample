@@ -1,0 +1,88 @@
+cfg:
+  seed: 1234
+  nemo_path: p_tuning.nemo
+  virtual_prompt_style: P_TUNING
+  tensor_model_parallel_size: 1
+  pipeline_model_parallel_size: 1
+  global_batch_size: 2
+  micro_batch_size: 1
+  validation_global_batch_size: 2
+  validation_micro_batch_size: 1
+  validation_drop_last: false
+  report_validation_metric: false
+  validation_metric: accuracy
+  restore_path: null
+  language_model_path: /mnt/ngc/megatron_gpt_345m.nemo
+  save_nemo_on_validation_end: true
+  existing_tasks:
+  - squad
+  new_tasks:
+  - squad
+  sequence_parallel: false
+  activations_checkpoint_granularity: null
+  activations_checkpoint_method: null
+  activations_checkpoint_num_layers: null
+  task_templates:
+  - taskname: squad
+    prompt_template: '<|VIRTUAL_PROMPT_0|> Context: {context}
+
+
+      Question: {question}
+
+
+      Answer:{answer}'
+    total_virtual_tokens: 15
+    virtual_token_splits:
+    - 15
+    truncate_field: context
+    answer_only_loss: true
+    answer_field: answer
+  prompt_tuning:
+    new_prompt_init_methods:
+    - text
+    new_prompt_init_text:
+    - some init text goes here
+  p_tuning:
+    encoder_type: tpmlp
+    dropout: 0.0
+    num_layers: 2
+    encoder_hidden: 2048
+    init_std: 0.023
+  data:
+    train_ds:
+    - ../data/SQuAD/squad_short_train.jsonl
+    validation_ds:
+    - ../data/SQuAD/squad_short_val.jsonl
+    add_eos: true
+    shuffle: true
+    num_workers: 8
+    pin_memory: true
+    train_cache_data_path: null
+    validation_cache_data_path: null
+    test_cache_data_path: null
+    load_cache: false
+    max_seq_length: 1024
+    min_seq_length: 1
+  optim:
+    name: fused_adam
+    lr: 0.0001
+    weight_decay: 0.01
+    betas:
+    - 0.9
+    - 0.98
+    sched:
+      name: CosineAnnealing
+      warmup_steps: 50
+      min_lr: 0.0
+      constant_steps: 0
+      monitor: val_loss
+      reduce_on_plateau: false
+  inference:
+    greedy: false
+    top_k: 0
+    top_p: 0.9
+    temperature: 1.0
+    tokens_to_generate: 30
+    repetition_penalty: 1.2
+    min_tokens_to_generate: 0
+  precision: 16

@@ -1,0 +1,774 @@
+commit hash: e8119816b7d18656a9a9f543b61a03f6c4dd5410
+diff --git a/code/Multitask_Prompt_and_PTuning.ipynb b/code/Multitask_Prompt_and_PTuning.ipynb
+index e85cb0b..15dcc9e 100644
+--- a/code/Multitask_Prompt_and_PTuning.ipynb
++++ b/code/Multitask_Prompt_and_PTuning.ipynb
+@@ -2,7 +2,7 @@
+  "cells": [
+   {
+    "cell_type": "markdown",
+-   "id": "c04653a4",
++   "id": "4295a2b3",
+    "metadata": {},
+    "source": [
+     "# Introduction\n",
+@@ -63,7 +63,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 1,
+-   "id": "86bfee4f",
++   "id": "26b2a9f5",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -74,7 +74,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 2,
+-   "id": "f84330df",
++   "id": "a24e00f4",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -84,7 +84,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "7fb430eb",
++   "id": "287082a9",
+    "metadata": {},
+    "source": [
+     "# Tasks and Datasets\n",
+@@ -95,7 +95,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "ee5da4be",
++   "id": "7bf8844e",
+    "metadata": {},
+    "source": [
+     "# Data Preparation\n",
+@@ -114,8 +114,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 3,
+-   "id": "f492bb16",
++   "execution_count": 5,
++   "id": "351403c1",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -129,7 +129,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "95fadaf9",
++   "id": "b3b96e83",
+    "metadata": {},
+    "source": [
+     "\n",
+@@ -138,8 +138,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 4,
+-   "id": "408731e4",
++   "execution_count": 6,
++   "id": "e8be2fa5",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -148,7 +148,7 @@
+        "'/mnt/ngc/prompt_learning_squad_preprocessing (1).py'"
+       ]
+      },
+-     "execution_count": 4,
++     "execution_count": 6,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+@@ -160,7 +160,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "b87a6a6a",
++   "id": "2556ab5f",
+    "metadata": {},
+    "source": [
+     "Now let's down load and process the dataset."
+@@ -168,7 +168,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "b5b4a439",
++   "id": "40096f39",
+    "metadata": {},
+    "source": [
+     "### SQuAD Dataset"
+@@ -176,35 +176,35 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 5,
+-   "id": "9c272414",
++   "execution_count": 7,
++   "id": "81b7cd58",
+    "metadata": {},
+    "outputs": [
+     {
+      "name": "stdout",
+      "output_type": "stream",
+      "text": [
+-      "--2023-10-04 20:23:08--  https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json\n",
+-      "Resolving rajpurkar.github.io (rajpurkar.github.io)... 185.199.108.153, 185.199.110.153, 185.199.111.153, ...\n",
++      "--2023-11-02 01:20:59--  https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json\n",
++      "Resolving rajpurkar.github.io (rajpurkar.github.io)... 185.199.108.153, 185.199.109.153, 185.199.110.153, ...\n",
+       "Connecting to rajpurkar.github.io (rajpurkar.github.io)|185.199.108.153|:443... connected.\n",
+       "HTTP request sent, awaiting response... 200 OK\n",
+       "Length: 30288272 (29M) [application/json]\n",
+       "Saving to: ‘train-v1.1.json’\n",
+       "\n",
+-      "train-v1.1.json     100%[===================>]  28.88M  77.4MB/s    in 0.4s    \n",
++      "train-v1.1.json     100%[===================>]  28.88M  5.48MB/s    in 5.4s    \n",
+       "\n",
+-      "2023-10-04 20:23:09 (77.4 MB/s) - ‘train-v1.1.json’ saved [30288272/30288272]\n",
++      "2023-11-02 01:21:05 (5.34 MB/s) - ‘train-v1.1.json’ saved [30288272/30288272]\n",
+       "\n",
+-      "--2023-10-04 20:23:09--  https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json\n",
+-      "Resolving rajpurkar.github.io (rajpurkar.github.io)... 185.199.109.153, 185.199.108.153, 185.199.111.153, ...\n",
+-      "Connecting to rajpurkar.github.io (rajpurkar.github.io)|185.199.109.153|:443... connected.\n",
++      "--2023-11-02 01:21:05--  https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json\n",
++      "Resolving rajpurkar.github.io (rajpurkar.github.io)... 185.199.108.153, 185.199.109.153, 185.199.110.153, ...\n",
++      "Connecting to rajpurkar.github.io (rajpurkar.github.io)|185.199.108.153|:443... connected.\n",
+       "HTTP request sent, awaiting response... 200 OK\n",
+       "Length: 4854279 (4.6M) [application/json]\n",
+       "Saving to: ‘dev-v1.1.json’\n",
+       "\n",
+-      "dev-v1.1.json       100%[===================>]   4.63M  --.-KB/s    in 0.1s    \n",
++      "dev-v1.1.json       100%[===================>]   4.63M  5.34MB/s    in 0.9s    \n",
+       "\n",
+-      "2023-10-04 20:23:09 (44.3 MB/s) - ‘dev-v1.1.json’ saved [4854279/4854279]\n",
++      "2023-11-02 01:21:06 (5.34 MB/s) - ‘dev-v1.1.json’ saved [4854279/4854279]\n",
+       "\n"
+      ]
+     }
+@@ -222,8 +222,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 6,
+-   "id": "89ff3477",
++   "execution_count": 8,
++   "id": "924160a1",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -231,13 +231,13 @@
+      "output_type": "stream",
+      "text": [
+       "Saving train split to ../data/SQuAD/squad_train.jsonl\n",
+-      "100%|█████████████████████████████████| 87599/87599 [00:00<00:00, 141541.07it/s]\n",
++      "100%|█████████████████████████████████| 87599/87599 [00:00<00:00, 208997.18it/s]\n",
+       "Saving val split to ../data/SQuAD/squad_val.jsonl\n",
+-      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 137888.14it/s]\n",
++      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 201205.37it/s]\n",
+       "Saving test split to ../data/SQuAD/squad_test_ground_truth.jsonl\n",
+-      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 126490.89it/s]\n",
++      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 180297.83it/s]\n",
+       "Saving test split to ../data/SQuAD/squad_test.jsonl\n",
+-      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 140459.94it/s]\n"
++      "100%|█████████████████████████████████| 10570/10570 [00:00<00:00, 188269.89it/s]\n"
+      ]
+     }
+    ],
+@@ -248,8 +248,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 7,
+-   "id": "4d242aec",
++   "execution_count": 9,
++   "id": "d7265bf8",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -270,7 +270,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "7c8143d9",
++   "id": "49a8ba71",
+    "metadata": {},
+    "source": [
+     "## Notes\n",
+@@ -285,8 +285,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 8,
+-   "id": "1634ab44",
++   "execution_count": 10,
++   "id": "f88cedb7",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -296,7 +296,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "ad8b529a",
++   "id": "920ce952",
+    "metadata": {},
+    "source": [
+     "# P-Tuning Model Config Setup\n",
+@@ -306,8 +306,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 9,
+-   "id": "3bc4148a",
++   "execution_count": 11,
++   "id": "07be8ad3",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -323,7 +323,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "69355a44",
++   "id": "04b9ce03",
+    "metadata": {},
+    "source": [
+     "First let's set the datasets we've created in the config. We are going to start by p-tuning a GPT model on a small subset of the **Squad** task. We do this by setting the following config params below: "
+@@ -331,8 +331,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 10,
+-   "id": "dcec3ab7",
++   "execution_count": 12,
++   "id": "3527803b",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -342,7 +342,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "9e01dc43",
++   "id": "d2069ee5",
+    "metadata": {},
+    "source": [
+     "### Prompt Formatting\n",
+@@ -363,8 +363,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 11,
+-   "id": "a1d1a358",
++   "execution_count": 13,
++   "id": "baab6926",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -385,7 +385,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "a658e987",
++   "id": "c3954487",
+    "metadata": {},
+    "source": [
+     "Note each `task_template` item has 5 fields. \n",
+@@ -415,7 +415,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "4d72165b",
++   "id": "2f147ddc",
+    "metadata": {},
+    "source": [
+     "### Setting New Tasks\n",
+@@ -426,8 +426,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 12,
+-   "id": "0abe1820",
++   "execution_count": 14,
++   "id": "3c909e6a",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -437,7 +437,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "0a8e9ef3",
++   "id": "343c0161",
+    "metadata": {},
+    "source": [
+     "After p-tuning and/or prompt tuning is complete, you can run inference on all tasks at the same time, regardless of their `total_virtual_tokens` value."
+@@ -445,7 +445,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "efe42c2c",
++   "id": "de48f9ee",
+    "metadata": {},
+    "source": [
+     "### Setting The Pre-Trained GPT Model\n",
+@@ -454,8 +454,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 13,
+-   "id": "09c30600",
++   "execution_count": 15,
++   "id": "69cc9e77",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -475,7 +475,7 @@
+        " )]"
+       ]
+      },
+-     "execution_count": 13,
++     "execution_count": 15,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+@@ -488,7 +488,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "9595fedd",
++   "id": "afc2df6c",
+    "metadata": {},
+    "source": [
+     "If we wanted to use the GPT model class directly, we could instantiate a trainer then download the model by calling running \n",
+@@ -497,8 +497,8 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 14,
+-   "id": "998a08c0",
++   "execution_count": 16,
++   "id": "4854c06f",
+    "metadata": {
+     "scrolled": true
+    },
+@@ -507,7 +507,22 @@
+      "name": "stdout",
+      "output_type": "stream",
+      "text": [
+-      "File ‘/mnt/ngc/megatron_gpt_345m.nemo’ already there; not retrieving.\n"
++      "--2023-11-02 01:22:39--  https://api.ngc.nvidia.com/v2/models/nvidia/nemo/megatron_gpt_345m/versions/1/files/megatron_gpt_345m.nemo\n",
++      "Resolving api.ngc.nvidia.com (api.ngc.nvidia.com)... 54.187.192.111, 54.212.59.154\n",
++      "Connecting to api.ngc.nvidia.com (api.ngc.nvidia.com)|54.187.192.111|:443... connected.\n",
++      "HTTP request sent, awaiting response... 302 Found\n",
++      "Location: https://prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com/org/nvidia/team/nemo/models/megatron_gpt_345m/versions/1/files/megatron_gpt_345m.nemo?response-content-disposition=attachment%3B%20filename%3D%22megatron_gpt_345m.nemo%22&response-content-type=application%2Foctet-stream&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231102T012240Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA3PSNVSIZ42OUKYPX%2F20231102%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=4c66f989e0cb922215b9b51798e2a1cf372c96e61b5491a5baa70ac6684ed2f2 [following]\n",
++      "--2023-11-02 01:22:40--  https://prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com/org/nvidia/team/nemo/models/megatron_gpt_345m/versions/1/files/megatron_gpt_345m.nemo?response-content-disposition=attachment%3B%20filename%3D%22megatron_gpt_345m.nemo%22&response-content-type=application%2Foctet-stream&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231102T012240Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA3PSNVSIZ42OUKYPX%2F20231102%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=4c66f989e0cb922215b9b51798e2a1cf372c96e61b5491a5baa70ac6684ed2f2\n",
++      "Resolving prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com (prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com)... 52.92.164.114, 52.92.147.90, 52.92.226.10, ...\n",
++      "Connecting to prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com (prod-model-registry-ngc-bucket.s3.us-west-2.amazonaws.com)|52.92.164.114|:443... connected.\n",
++      "HTTP request sent, awaiting response... 200 OK\n",
++      "Length: 1422622720 (1.3G) [application/octet-stream]\n",
++      "Saving to: ‘/mnt/ngc/megatron_gpt_345m.nemo’\n",
++      "\n",
++      "/mnt/ngc/megatron_g 100%[===================>]   1.32G  5.28MB/s    in 5m 49s  \n",
++      "\n",
++      "2023-11-02 01:28:30 (3.89 MB/s) - ‘/mnt/ngc/megatron_gpt_345m.nemo’ saved [1422622720/1422622720]\n",
++      "\n"
+      ]
+     }
+    ],
+@@ -519,7 +534,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "90d6de46",
++   "id": "9b718c1a",
+    "metadata": {},
+    "source": [
+     "Now that we have a `.nemo` GPT file to work with. We need to add its path in our prompt learning config. "
+@@ -528,7 +543,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 15,
+-   "id": "cf038894",
++   "id": "c6eb944f",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -538,7 +553,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "813ddc37",
++   "id": "a26fb23d",
+    "metadata": {},
+    "source": [
+     "We can also set where we want the final prompt tuned model to be saved by setting `model.nemo_path`. By default the tuned prompt learning model will be saved in your current working directory to a `.nemo` file with the same name as your experiment (`config.name`). Let's change the save name to be `p_tuned_gpt.nemo`. **Your model path must end in `.nemo`.**"
+@@ -547,7 +562,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 16,
+-   "id": "75aec253",
++   "id": "c5def76e",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -558,7 +573,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "aa64506d",
++   "id": "c866d553",
+    "metadata": {},
+    "source": [
+     "### Setting P-Tuning Specific Params\n",
+@@ -568,7 +583,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 17,
+-   "id": "e38eb1b1",
++   "id": "242c73c3",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -578,7 +593,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "c4a0d7be",
++   "id": "f9c63ae9",
+    "metadata": {},
+    "source": [
+     "Then we can set the 2 p-tuning specific parameters. Reminder, p-tuning uses an LSTM prompt encoder to predict virtual tokens. \n",
+@@ -590,7 +605,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 18,
+-   "id": "230c4ca4",
++   "id": "6bec96b7",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -602,7 +617,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "783ccd33",
++   "id": "bc2adf16",
+    "metadata": {},
+    "source": [
+     "Let's have a look at all the values we've set in the model config. You can change any of these values in the same manner we've been using above. "
+@@ -611,7 +626,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 19,
+-   "id": "03d6a3a7",
++   "id": "d6c6297e",
+    "metadata": {
+     "scrolled": true
+    },
+@@ -716,7 +731,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "e712f567",
++   "id": "2cbcc96e",
+    "metadata": {},
+    "source": [
+     "### Setting Prompt-Tuning Specific Params\n",
+@@ -737,7 +752,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "b36ae014",
++   "id": "0e412476",
+    "metadata": {},
+    "source": [
+     "# Building the PyTorch Lightning Trainer\n",
+@@ -749,7 +764,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 20,
+-   "id": "ba0a1757",
++   "id": "43177093",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -821,7 +836,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "31605751",
++   "id": "af0ad4d8",
+    "metadata": {},
+    "source": [
+     "# Setting up a NeMo Experiment\n",
+@@ -832,7 +847,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 21,
+-   "id": "49f5d22b",
++   "id": "4eefb582",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -860,7 +875,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "528eb9ae",
++   "id": "d8da05e9",
+    "metadata": {},
+    "source": [
+     "We can also set learning hyperparameters as follows:"
+@@ -869,7 +884,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 22,
+-   "id": "dad0e51e",
++   "id": "07355615",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -880,7 +895,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "cdf93384",
++   "id": "fa87abb8",
+    "metadata": {},
+    "source": [
+     "# First P-Tuning Session\n",
+@@ -890,7 +905,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 23,
+-   "id": "aa5ee161",
++   "id": "a63333b3",
+    "metadata": {},
+    "outputs": [
+     {
+@@ -1069,7 +1084,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 24,
+-   "id": "70401b70",
++   "id": "3b28ea82",
+    "metadata": {
+     "scrolled": true
+    },
+@@ -1446,7 +1461,7 @@
+   },
+   {
+    "cell_type": "markdown",
+-   "id": "f7edb1fa",
++   "id": "3a188137",
+    "metadata": {},
+    "source": [
+     "# Inference After P-Tuning\n",
+@@ -1466,7 +1481,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 25,
+-   "id": "44c025ae",
++   "id": "4f3cde0a",
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -1480,7 +1495,7 @@
+   {
+    "cell_type": "code",
+    "execution_count": 26,
+-   "id": "4dee5444",
++   "id": "b2da1111",
+    "metadata": {
+     "scrolled": true
+    },
+diff --git a/models/conf/megatron_gpt_prompt_learning_config.yaml b/models/conf/megatron_gpt_prompt_learning_config.yaml
+index 5b45ef6..96efaf2 100644
+--- a/models/conf/megatron_gpt_prompt_learning_config.yaml
++++ b/models/conf/megatron_gpt_prompt_learning_config.yaml
+@@ -1,3 +1,173 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7e803e7eccbbff09d02e3fe18362659ba4506e255b235f8ded658e00e6a13ba9
+-size 7451
++name: megatron_virtual_prompt_gpt
++
++trainer:
++  devices: 1
++  accelerator: gpu
++  num_nodes: 1
++  precision: 16
++  logger: False # logger provided by exp_manager
++  enable_checkpointing: False
++  # use_distributed_sampler: False
++  max_epochs: 3 # min 25 recommended
++  max_steps: -1 # consumed_samples = global_step * micro_batch_size * data_parallel_size * accumulate_grad_batches
++  log_every_n_steps: 10 # frequency with which training steps are logged 
++  val_check_interval: 1.0 # If is an int n > 1, will run val every n training steps, if a float 0.0 - 1.0 will run val every epoch fraction, e.g. 0.25 will run val every quarter epoch
++  gradient_clip_val: 1.0
++  benchmark: False
++  
++
++
++exp_manager:
++  explicit_log_dir: null
++  exp_dir: null
++  name: ${name}
++  create_wandb_logger: False
++  wandb_logger_kwargs:
++    project: null
++    name: null
++  resume_if_exists: True
++  resume_ignore_no_checkpoint: True
++  create_checkpoint_callback: True
++  checkpoint_callback_params:
++    monitor: val_loss
++    save_top_k: 2
++    mode: min
++    save_nemo_on_train_end: True 
++    filename: 'megatron_gpt_prompt_tune--{val_loss:.3f}-{step}'
++    model_parallel_size: ${model.tensor_model_parallel_size}
++    save_best_model: True
++  create_early_stopping_callback: True
++  early_stopping_callback_params:
++    monitor: "val_loss"
++    mode: "min"
++    min_delta: 0.001
++    patience: 10
++    verbose: True
++    strict: False # Should be False to avoid a runtime error where EarlyStopping says monitor is unavailable, which sometimes happens with resumed training.
++  
++
++model:
++  seed: 1234
++  nemo_path: ${name}.nemo # .nemo filename/absolute path to where the virtual prompt model parameters will be saved
++  virtual_prompt_style: 'p-tuning' # one of 'prompt-tuning', 'p-tuning', or 'inference'
++  tensor_model_parallel_size: 1 # intra-layer model parallelism
++  pipeline_model_parallel_size: 1 # inter-layer model parallelism
++  global_batch_size: 8
++  micro_batch_size: 4
++  validation_global_batch_size: ${model.global_batch_size}
++  validation_micro_batch_size: ${model.micro_batch_size}
++  validation_drop_last: False
++  report_validation_metric: False
++  validation_metric: 'accuracy'
++
++  restore_path: null # Path to an existing p-tuned/prompt tuned .nemo model you wish to add new tasks to or run inference with
++  language_model_path: ??? # Path to the GPT language model .nemo file, always required
++  save_nemo_on_validation_end: True # Saves an inference ready .nemo file every time a checkpoint is saved during training. 
++  existing_tasks: ['boolq', 'intent_and_slot'] # List of tasks the model has already been p-tuned/prompt-tuned for, needed when a restore path is given
++  new_tasks: ['rte'] # List of new tasknames to be prompt-tuned
++  
++
++
++  ## Sequence Parallelism
++  # Makes tensor parallelism more memory efficient for LLMs (20B+) by parallelizing layer norms and dropout sequentially
++  # See Reducing Activation Recomputation in Large Transformer Models: https://arxiv.org/abs/2205.05198 for more details.
++  sequence_parallel: False
++
++  ## Activation Checkpoint 
++  activations_checkpoint_granularity: null # 'selective' or 'full' 
++  activations_checkpoint_method: null # 'uniform', 'block', not used with 'selective'
++  # 'uniform' divides the total number of transformer layers and checkpoints the input activation
++  # of each chunk at the specified granularity
++  # 'block' checkpoints the specified number of layers per pipeline stage at the specified granularity
++  activations_checkpoint_num_layers: null # not used with 'selective'
++
++  task_templates: # Add more/replace tasks as needed, these are just examples
++  - taskname: "boolq" # The task name
++    prompt_template: "<|VIRTUAL_PROMPT_0|> Passage: {passage} <|VIRTUAL_PROMPT_1|> \nQuestion: {question} \nAnswer: {answer}" # Prompt template for task, specify virtual prompt positions with <|VIRTUAL_PROMPT_#|>
++    total_virtual_tokens: 30 # Sum of tokens in virtual_token_splits must add to this number. Can differ between new and existing tasks, but must match across all new tasks being tuned at the same time.
++    virtual_token_splits: [20, 10] # number of virtual tokens to be inserted at each VIRTUAL PROMPT location, must add to total_virtual_tokens
++    truncate_field: "passage" # The {field} in the prompt template whose text will be truncated if the input is too long, if null, inputs that are too long will just be skipped.
++    answer_only_loss: True 
++    answer_field: "answer"
++
++  - taskname: "intent_and_slot"
++    prompt_template: "<|VIRTUAL_PROMPT_0|> intent options: {intent_options} <|VIRTUAL_PROMPT_1|> slot options: {slot_options} <|VIRTUAL_PROMPT_2|> {utterance} \nintent: {intent} \nslot: {slot}"
++    total_virtual_tokens: 30
++    answer_only_loss: False 
++    virtual_token_splits: [15, 10, 5]
++    truncate_field: null
++
++  - taskname: "rte" 
++    prompt_template: "<|VIRTUAL_PROMPT_0|>{premise}\n{hypothesis}\nAnswer: {answer}" 
++    total_virtual_tokens: 9 
++    virtual_token_splits: [9] 
++    truncate_field: null
++    answer_only_loss: True
++    answer_field: "answer"
++  
++  - taskname: "squad" 
++    prompt_template: "<|VIRTUAL_PROMPT_0|> context: {context} question: {question} answer: {answer}" 
++    total_virtual_tokens: 10
++    virtual_token_splits: [10]
++    truncate_field: null
++    answer_only_loss: True
++    answer_field: "answer"
++
++  - taskname: "taskname"
++    prompt_template: "<|VIRTUAL_PROMPT_0|> {prompt} {completion}"
++    total_virtual_tokens: 100
++    virtual_token_splits: [100]
++    truncate_field: null
++    answer_only_loss: True
++    answer_field: "completion"
++
++  prompt_tuning: # Prompt tunin specific params
++    new_prompt_init_methods: ['text'] # List of 'text' or 'random', should correspond to tasks listed in new tasks
++    new_prompt_init_text: ['some init text goes here'] # some init text if init method is text, or None if init method is random
++
++  p_tuning: # P-tuning specific params
++    encoder_type: "tpmlp" # ['tpmlp', 'lstm', 'biglstm', 'mlp'] 
++    dropout: 0.0
++    num_layers: 2  # number of layers for MLP or LSTM layers. Note, it has no effect for tpmlp currently as it always assumes it is two layers.
++    encoder_hidden: 2048 # encoder hidden for biglstm and tpmlp
++    init_std: 0.023  # init std for tpmlp layers
++
++  data:
++    train_ds: [data/rte_train.jsonl,]
++    validation_ds: [data/rte_val.jsonl,]
++    add_eos: True
++    shuffle: True
++    num_workers: 8
++    pin_memory: True
++    train_cache_data_path: null  # the path to the train cache data 
++    validation_cache_data_path: null  # the path to the validation cache data 
++    test_cache_data_path: null  # the path to the test cache data 
++    load_cache: False  # whether to load from the cache data
++    max_seq_length: 1024  # filter out training and validation examples longer than 1024 tokens. Set to None will default to model's encoder length.
++    min_seq_length: 1  # filter out training and validation examples less than 1 token long.
++
++
++  optim:
++    name: fused_adam
++    lr: 1e-4
++    weight_decay: 0.01 
++    betas: 
++    - 0.9
++    - 0.98
++    sched:
++      name: CosineAnnealing
++      warmup_steps: 50
++      min_lr: 0.0 # min_lr must be 0.0 for prompt learning when pipeline parallel > 1
++      constant_steps: 0 # Constant steps should also be 0 when min_lr=0
++      monitor: val_loss
++      reduce_on_plateau: false
++
++  # required for reporting validation metrics
++  inference:
++    greedy: False
++    top_k: 0
++    top_p: 0.9
++    temperature: 1.0
++    tokens_to_generate: 30
++    repetition_penalty: 1.2
++    min_tokens_to_generate: 0

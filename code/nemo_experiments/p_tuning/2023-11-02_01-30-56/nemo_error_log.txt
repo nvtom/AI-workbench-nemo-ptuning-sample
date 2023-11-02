@@ -1,0 +1,35 @@
+[NeMo W 2023-11-02 01:31:09 modelPT:244] You tried to register an artifact under config key=tokenizer.vocab_file but an artifact for it has already been registered.
+[NeMo W 2023-11-02 01:31:13 modelPT:244] You tried to register an artifact under config key=tokenizer.vocab_file but an artifact for it has already been registered.
+[NeMo W 2023-11-02 01:31:22 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/configuration_validator.py:175: UserWarning: The `batch_idx` argument in `MegatronGPTPromptLearningModel.on_train_batch_start` hook may not match with the actual batch index when using a `dataloader_iter` argument in your `training_step`.
+      rank_zero_warn(
+    
+[NeMo W 2023-11-02 01:31:22 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/configuration_validator.py:175: UserWarning: The `batch_idx` argument in `MegatronGPTPromptLearningModel.on_train_batch_end` hook may not match with the actual batch index when using a `dataloader_iter` argument in your `training_step`.
+      rank_zero_warn(
+    
+[NeMo W 2023-11-02 01:31:22 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/lightning_fabric/plugins/environments/torchelastic.py:36: UserWarning: MASTER_ADDR environment variable is not defined. Set as localhost
+      rank_zero_warn("MASTER_ADDR environment variable is not defined. Set as localhost")
+    
+[NeMo W 2023-11-02 01:31:22 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/lightning_fabric/plugins/environments/torchelastic.py:44: UserWarning: MASTER_PORT environment variable is not defined. Set as 12910
+      rank_zero_warn("MASTER_PORT environment variable is not defined. Set as 12910")
+    
+[NeMo W 2023-11-02 01:31:26 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/apex/optimizers/fused_adam.py:112: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/tensor/python_tensor.cpp:82.)
+      self._dummy_overflow_buf = torch.cuda.IntTensor([0])
+    
+[NeMo W 2023-11-02 01:31:26 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/dataloader/evaluation_loop.py:401: UserWarning: Found `dataloader_iter` argument in the `validation_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+      rank_zero_warn(
+    
+[NeMo W 2023-11-02 01:31:26 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/apex/transformer/pipeline_parallel/utils.py:81: UserWarning: This function is only for unittest
+      warnings.warn("This function is only for unittest")
+    
+[NeMo W 2023-11-02 01:31:29 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:536: PossibleUserWarning: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+      warning_cache.warn(
+    
+[NeMo W 2023-11-02 01:31:29 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/fit_loop.py:344: UserWarning: Found `dataloader_iter` argument in the `training_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+      rank_zero_warn(
+    
+[NeMo W 2023-11-02 01:31:32 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:232: UserWarning: You called `self.log('global_step', ...)` in your `training_step` but the value needs to be floating point. Converting it to torch.float32.
+      warning_cache.warn(
+    
+[NeMo W 2023-11-02 01:31:32 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/optim/lr_scheduler.py:139: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+      warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+    
